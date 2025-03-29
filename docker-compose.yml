@@ -1,0 +1,70 @@
+version: '3.8'
+
+networks:
+  spark-network:
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: sparkuser
+      MYSQL_PASSWORD: sparkpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./:/docker-entrypoint-initdb.d
+      - mysql-data:/var/lib/mysql
+    networks:
+      - spark-network
+
+  spark-master:
+    build: .
+    image: custom-spark
+    command: /opt/bitnami/spark/bin/spark-class org.apache.spark.deploy.master.Master
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    environment:
+      - SPARK_MASTER_HOST=spark-master
+    networks:
+      - spark-network
+
+  spark-worker:
+    build: .
+    image: custom-spark
+    command: /opt/bitnami/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=2g
+    ports:
+      - "8081:8081"
+    networks:
+      - spark-network
+
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile.jupyter
+    image: custom-spark-jupyter
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/notebooks
+    depends_on:
+      - spark-master
+      - mysql
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - JUPYTER_ENABLE_LAB=yes
+    command: ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
+    user: "root"
+    networks:
+      - spark-network
+
+volumes:
+  mysql-data:
