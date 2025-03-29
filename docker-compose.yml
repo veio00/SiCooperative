@@ -31,6 +31,11 @@ services:
       - SPARK_MASTER_HOST=spark-master
     networks:
       - spark-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   spark-worker:
     build: .

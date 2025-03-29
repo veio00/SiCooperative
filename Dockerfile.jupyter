@@ -21,7 +21,6 @@ RUN apt-get update && \
     echo "c.NotebookApp.token = ''" > /home/user1001/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.password = ''" >> /home/user1001/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.default_url = '/tree'" >> /home/user1001/.jupyter/jupyter_notebook_config.py && \
-    echo "c.NotebookApp.log_level = 'CRITICAL'" >> /home/user1001/.jupyter/jupyter_notebook_config.py && \
     chown -R 1001:1001 /home/user1001/.jupyter && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
