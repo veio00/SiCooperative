@@ -2,41 +2,32 @@ FROM bitnami/spark:latest
 
 USER root
 
-# Instalar dependências: Python, Jupyter, wget, curl e py4j (PySpark já está na imagem)
 RUN apt-get update && \
     apt-get install -y python3-pip wget curl && \
     pip3 install jupyter && \
     pip3 install py4j && \
-    # Instalar o Apache Toree
     pip3 install toree && \
-    # Criar o diretório home para o usuário 1001
     mkdir -p /home/user1001 && \
     chown -R 1001:1001 /home/user1001 && \
-    # Registrar o kernel Toree no Jupyter com Spark (globalmente)
     jupyter toree install --spark_home=/opt/bitnami/spark --interpreters=Scala && \
-    # Garantir permissões para o usuário 1001 acessar o kernel
     chown -R 1001:1001 /usr/local/share/jupyter/kernels && \
-    # Criar arquivo de configuração do Jupyter para desativar o token e pular a tela inicial
     mkdir -p /home/user1001/.jupyter && \
     echo "c.NotebookApp.token = ''" > /home/user1001/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.password = ''" >> /home/user1001/.jupyter/jupyter_notebook_config.py && \
     echo "c.NotebookApp.default_url = '/tree'" >> /home/user1001/.jupyter/jupyter_notebook_config.py && \
+    echo "c.NotebookApp.log_level = 'CRITICAL'" >> /home/user1001/.jupyter/jupyter_notebook_config.py && \
     chown -R 1001:1001 /home/user1001/.jupyter && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Baixar o conector MySQL
 RUN mkdir -p /opt/bitnami/spark/jars && \
     wget -P /opt/bitnami/spark/jars https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar
 	
 
-# Criar diretório pra testes
 RUN mkdir -p /tests
 
-# Copiar o arquivo de teste
 COPY tests/test_etl.py /tests/test_etl.py
 
-# Criar um script de entrada pra rodar os testes (opcional)
 RUN echo '#!/bin/bash\n\
 echo "Rodando testes unitários..."\n\
 python3 /tests/test_etl.py\n\
@@ -46,12 +37,10 @@ exec jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root' > /ent
 
 USER 1001
 
-# Definir HOME para o usuário 1001
 ENV HOME=/home/user1001
 
 WORKDIR /notebooks
 
 EXPOSE 8888
 
-# Iniciar o Jupyter sem argumentos extras, confiando na configuração
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
