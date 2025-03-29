@@ -4,9 +4,8 @@
 SiCooperative é um projeto de ingestão de dados com transformação e normalização, projetado para facilitar consultas e a construção de modelos analíticos. O objetivo é processar massas de dados brutas, aplicar ETL (Extract, Transform, Load) e gerar arquivos estruturados para análises posteriores, utilizando ferramentas modernas e escaláveis.
 
 ## Funcionalidades
-- Ingestão de dados brutos a partir de uma massa de dados pré-definida.
+- Ingestão de dados brutos a partir de uma massa de dados.
 - Transformação e normalização de dados utilizando Python ou Scala.
-- Suporte a processamento em batch (Python) e near-real-time (Scala) com Apache Spark.
 - Geração de arquivos CSV com os dados processados.
 - Testes automatizados para validar as etapas de ETL.
 
@@ -43,6 +42,7 @@ SiCooperative é um projeto de ingestão de dados com transformação e normaliz
 - Volte uma pasta e execute o notebook `movimento_flat_{python ou scala}`.
 - Esses notebooks contêm o ETL completo (extract, load e transform) e os testes associados.
 - O resultado será um arquivo CSV gerado na pasta `csv` (na raiz do Jupyter) ou dentro da pasta `notebooks` na raiz do projeto.
+- **Limpeza da massas de dados**: Caso deseje criar uma nova massa de dados, utilize os notebooks `limpar_base_python` ou `limpar_base_scala`, localizados na pasta `notebooks`. Eles são scripts de limpeza que zeraram as tabelas.
 
 ## Estrutura do Projeto
 - `/massa_dados`: Contém os dados brutos para ingestão.
@@ -60,6 +60,7 @@ SiCooperative é um projeto de ingestão de dados com transformação e normaliz
 - **Python e Scala**: Python para processamentos em batch (lentos e simples), Scala para NRT (rápidos e escaláveis), atendendo a diferentes cenários de volume e velocidade.
 - **MySQL**: Banco amplamente utilizado e confiável.
 - **unittest**: Biblioteca nativa, leve e suficiente para os testes, evitando sobrecarga no fluxo.
+- **Jupyter Notebook**: Adotado para acelerar o desenvolvimento e promover colaboração, oferecendo um ambiente interativo e documentado.
 
 ## Status do Projeto
 O projeto está funcional e foi desenvolvido como uma solução prática para ingestão e transformação de dados. Está aberto a melhorias e ajustes conforme novas demandas ou regras de negócio surgirem.
