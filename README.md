@@ -76,9 +76,23 @@ SiCooperative é um projeto de ingestão de dados com transformação e normaliz
 O projeto está funcional e foi desenvolvido como uma solução prática para ingestão e transformação de dados. Está aberto a melhorias e ajustes conforme novas demandas ou regras de negócio surgirem.
 
 ## Como Contribuir
-- Faça um fork do repositório.
-- Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`).
-- Commit suas mudanças e envie um pull request com uma descrição clara.
+  - Faça um fork do repositório.
+  - Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`).
+  - Commit suas mudanças e envie um pull request com uma descrição clara.
 
 ## Contato
 Para dúvidas ou sugestões, entre em contato pelo GitHub Issues ou diretamente com o mantenedor (@veio00).
+
+## Melhorias
+Se fosse dar continuidade ao projeto, algumas melhorias planejadas incluiriam:
+
+  - **Parametrização**: Tornar o processo de ingestão e transformação parametrizado, utilizando arquivos JSON ou uma interface de formulários web. Isso permitiria que usuários como engenheiros de dados, equipes de governança ou áreas de negócios definissem informações básicas, como:
+  - Campos (nomes, tipagem, descrição).
+  - Origem e destino dos dados.
+  - Responsável e área responsável.
+  - Descrição geral da tabela.
+  - Outros metadados relevantes.
+  - **Integração com Catálogo de Dados**: Implementar uma integração com ferramentas existentes de catálogo de dados (ex.: Apache Atlas, DataHub) ou desenvolver uma solução própria, facilitando a descoberta, rastreamento e governança dos dados ingeridos.
+  - **Core de Transformação**: Para casos de ingestão mais complexos, como agregações ou transformações avançadas, desenvolver um núcleo de transformação reutilizável, que complemente a ingestão básica e suporte pipelines mais elaborados.
+
+Essas melhorias visam aumentar a flexibilidade, a colaboração entre equipes e a escalabilidade do projeto, alinhando-o a necessidades reais de ambientes de dados corporativos.
