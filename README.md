@@ -87,11 +87,11 @@ Para dúvidas ou sugestões, entre em contato pelo GitHub Issues ou diretamente 
 Se fosse dar continuidade ao projeto, algumas melhorias planejadas incluiriam:
 
   - **Parametrização**: Tornar o processo de ingestão e transformação parametrizado, utilizando arquivos JSON ou uma interface de formulários web. Isso permitiria que usuários como engenheiros de dados, equipes de governança ou áreas de negócios definissem informações básicas, como:
-  - Campos (nomes, tipagem, descrição).
-  - Origem e destino dos dados.
-  - Responsável e área responsável.
-  - Descrição geral da tabela.
-  - Outros metadados relevantes.
+    - Campos (nomes, tipagem, descrição).
+    - Origem e destino dos dados.
+    - Responsável e área responsável.
+    - Descrição geral da tabela.
+    - Outros metadados relevantes.
   - **Integração com Catálogo de Dados**: Implementar uma integração com ferramentas existentes de catálogo de dados (ex.: Apache Atlas, DataHub) ou desenvolver uma solução própria, facilitando a descoberta, rastreamento e governança dos dados ingeridos.
   - **Core de Transformação**: Para casos de ingestão mais complexos, como agregações ou transformações avançadas, desenvolver um núcleo de transformação reutilizável, que complemente a ingestão básica e suporte pipelines mais elaborados.
 
